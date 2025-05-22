@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Description>The payload assembly executed after dynamically loading Il2CppInterop</Description>
     </PropertyGroup>
