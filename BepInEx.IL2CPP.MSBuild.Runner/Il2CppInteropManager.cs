@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using AsmResolver.DotNet;
 using BepInEx.IL2CPP.MSBuild.Shared;
 using Il2CppInterop.Common;
 using Il2CppInterop.Generator;
@@ -12,7 +13,6 @@ using Il2CppInterop.Generator.MetadataAccess;
 using Il2CppInterop.Generator.Runners;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using Mono.Cecil;
 using Task = System.Threading.Tasks.Task;
 
 namespace BepInEx.IL2CPP.MSBuild.Runner
@@ -51,7 +51,7 @@ namespace BepInEx.IL2CPP.MSBuild.Runner
         private async Task RunIl2CppInteropGenerator(GameLibsPackage gameLibsPackage, string outputDirectory)
         {
             var sourceFiles = Directory.GetFiles(gameLibsPackage.DummyDirectory, "*.dll");
-            using var source = new CecilMetadataAccess(sourceFiles);
+            using var source = new AssemblyMetadataAccess(sourceFiles);
             Il2CppInteropGenerator.Create(new GeneratorOptions
                 {
                     Source = (List<AssemblyDefinition>)source.Assemblies,
