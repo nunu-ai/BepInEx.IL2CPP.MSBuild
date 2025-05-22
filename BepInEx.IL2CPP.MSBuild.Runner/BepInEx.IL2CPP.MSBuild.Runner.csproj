@@ -13,4 +13,18 @@
         <Reference Include="System.Net.Http" />
         <Reference Include="System.IO.Compression" />
     </ItemGroup>
+
+    <Target Name="Copy" AfterTargets="Build">
+      <PropertyGroup>
+        <DllTargetFolder>$(SolutionDir)\BepInEx.IL2CPP.MSBuild\bin\$(Configuration)\$(TargetFramework)</DllTargetFolder>
+      </PropertyGroup>
+      <MakeDir Directories="$(DllTargetFolder)" Condition="!Exists('$(DllTargetFolder)')" />
+      <ItemGroup>
+        <DllFiles Include="$(OutputPath)\*.dll" />
+      </ItemGroup>
+      <Copy
+        SourceFiles="@(DllFiles)"
+        DestinationFolder="$(DllTargetFolder)"
+      />
+    </Target>
 </Project>
